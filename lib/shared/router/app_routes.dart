@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_project/screens/chat/chat.dart';
@@ -12,52 +11,54 @@ part 'app_routes.g.dart';
 const shellRestorationScopeId = 'shellRestorationScopeId';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
-
 final menuNavigatorKey = GlobalKey<NavigatorState>();
 final chatNavigatorKey = GlobalKey<NavigatorState>();
 final favoritesNavigatorKey = GlobalKey<NavigatorState>();
 final settingsNavigatorKey = GlobalKey<NavigatorState>();
 
-@TypedStatefulShellRoute<HomeShellRoute>(
-    branches: [
-      TypedStatefulShellBranch<MenuBranch>(
-        routes: [
-          TypedGoRoute<MenuRoute>(
-              path: '/menu_screen',
-              name: MenuScreen.routeName
-          )
-        ]
-      ),
-      TypedStatefulShellBranch<ChatBranch>(
-          routes: [
-            TypedGoRoute<ChatRoute>(
-                path: '/chat_screen',
-                name: ChatScreen.routeName
-            ),
-          ]
-      ),
-      TypedStatefulShellBranch<FavoriteBranch>(
-          routes: [
-            TypedGoRoute<FavoriteRoute>(
-                path: '/favorite_screen',
-                name: FavoriteScreen.routeName
-            )
-          ]
-      ),
+@TypedStatefulShellRoute<HomeShellRoute>(branches: [
+  TypedStatefulShellBranch<MainBranch>(
+    routes: [
+      TypedGoRoute<MenuRoute>(path: '/menu_screen', name: MenuScreen.routeName)
+    ],
+  ),
+  TypedStatefulShellBranch<ChatBranch>(
+    routes: [
+      TypedGoRoute<ChatRoute>(path: '/chat_screen', name: ChatScreen.routeName),
+    ],
+  ),
+  TypedStatefulShellBranch<FavoriteBranch>(
+    routes: [
+      TypedGoRoute<FavoriteRoute>(
+          path: '/favorite_screen', name: FavoriteScreen.routeName),
+    ],
+  ),
+  TypedStatefulShellBranch<SettingsBranch>(
+    routes: [
+      TypedGoRoute<SettingsRoute>(
+          path: '/settings_screen', name: SettingsScreen.routeName)
+    ],
+  ),
+])
+class HomeShellRoute extends StatefulShellRouteData {
+  const HomeShellRoute();
 
-      TypedStatefulShellBranch<SettingsBranch>(
-          routes: [
-            TypedGoRoute<SettingsRoute>(
-                path: '/settings_screen',
-                name: SettingsScreen.routeName
-            )
-          ]
-      ),
-  ]
-)
+  static const String $restorationScopeId = shellRestorationScopeId;
 
-class MenuBranch extends StatefulShellBranchData {
-  const MenuBranch();
+  @override
+  Widget builder(
+    BuildContext context,
+    GoRouterState state,
+    StatefulNavigationShell navigationShell,
+  ) {
+    return ScaffoldWithNavBar(
+      navigationShell: navigationShell,
+    );
+  }
+}
+
+class MainBranch extends StatefulShellBranchData {
+  const MainBranch();
 
   static const String $restorationScopeId = shellRestorationScopeId;
   static final GlobalKey<NavigatorState> $navigatorKey = menuNavigatorKey;
@@ -84,7 +85,7 @@ class SettingsBranch extends StatefulShellBranchData {
   static final GlobalKey<NavigatorState> $navigatorKey = settingsNavigatorKey;
 }
 
-class MenuRoute extends GoRouteData{
+class MenuRoute extends GoRouteData {
   const MenuRoute();
 
   @override
@@ -93,7 +94,7 @@ class MenuRoute extends GoRouteData{
   }
 }
 
-class ChatRoute extends GoRouteData{
+class ChatRoute extends GoRouteData {
   const ChatRoute();
 
   @override
@@ -102,7 +103,7 @@ class ChatRoute extends GoRouteData{
   }
 }
 
-class FavoriteRoute extends GoRouteData{
+class FavoriteRoute extends GoRouteData {
   const FavoriteRoute();
 
   @override
@@ -111,29 +112,11 @@ class FavoriteRoute extends GoRouteData{
   }
 }
 
-class SettingsRoute extends GoRouteData{
+class SettingsRoute extends GoRouteData {
   const SettingsRoute();
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const SettingsScreen();
-  }
-}
-
-
-class HomeShellRoute extends StatefulShellRouteData {
-  const HomeShellRoute();
-
-  static const String $restorationScopeId = shellRestorationScopeId;
-
-  @override
-  Widget builder(
-      BuildContext context,
-      GoRouterState state,
-      StatefulNavigationShell navigationShell,
-      ) {
-    return ScaffoldWithNavBar(
-      navigationShell: navigationShell,
-    );
   }
 }
