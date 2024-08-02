@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:test_project/screens/menu/view/menu_screen.dart';
 
 class FavoriteScreen extends StatelessWidget {
   static const String routeName = 'favorite_screen';
@@ -7,8 +8,6 @@ class FavoriteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('Избранные'),
-    );
+    return const CenterContainer(text: 'Избранные',);
   }
 }

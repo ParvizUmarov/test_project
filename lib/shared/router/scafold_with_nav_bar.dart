@@ -1,6 +1,8 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:test_project/screens/chat/view/chat_screen.dart';
+import 'package:test_project/shared/theme/color.dart';
 
 class ScaffoldWithNavBar extends StatefulWidget {
   const ScaffoldWithNavBar({
@@ -17,61 +19,59 @@ class ScaffoldWithNavBar extends StatefulWidget {
 class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
   @override
   Widget build(BuildContext context) {
-
     Widget scaffold = Scaffold(
+      backgroundColor: AppColors.scaffoldBackground,
       body: widget.navigationShell,
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: AppColors.bottomNavigationBackground,
         type: BottomNavigationBarType.fixed,
         useLegacyColorScheme: false,
         showUnselectedLabels: false,
-        selectedLabelStyle: TextStyle(
-            color: Theme.of(context).primaryColor
-        ),
+        showSelectedLabels: false,
         items: [
           BottomNavigationBarItem(
             icon: _buildIcon(
-              Icons.home,
+              'assets/icon/menu.svg',
               isActive: false,
             ),
             activeIcon: _buildIcon(
-              Icons.home,
+              'assets/icon/menu.svg',
               isActive: true,
             ),
-            //label: s.home,
+            label: 'Меню',
           ),
           BottomNavigationBarItem(
             icon: _buildIcon(
-              Icons.search,
+              'assets/icon/chat.svg',
               isActive: false,
             ),
             activeIcon: _buildIcon(
-              Icons.search,
+              'assets/icon/chat.svg',
               isActive: true,
             ),
-            //label: s.search,
+            label: 'Чат',
           ),
           BottomNavigationBarItem(
             icon: _buildIcon(
-              Icons.favorite,
+              'assets/icon/favorite.svg',
               isActive: false,
             ),
             activeIcon: _buildIcon(
-              Icons.favorite,
+              'assets/icon/favorite.svg',
               isActive: true,
             ),
-            //label: s.favorites,
+            label: 'Избранные',
           ),
           BottomNavigationBarItem(
             icon: _buildIcon(
-              Icons.chat_bubble_rounded,
+              'assets/icon/settings.svg',
               isActive: false,
             ),
             activeIcon: _buildIcon(
-              Icons.chat_bubble_rounded,
+              'assets/icon/settings.svg',
               isActive: true,
             ),
-            //label: s.communication,
+            label: 'Настройки ',
           ),
         ],
         currentIndex: widget.navigationShell.currentIndex,
@@ -89,19 +89,18 @@ class _ScaffoldWithNavBarState extends State<ScaffoldWithNavBar> {
   }
 
   Widget _buildIcon(
-      IconData iconData, {
-        required bool isActive,
-        bool applyColorFilter = true,
-      }) {
+    String image, {
+    required bool isActive,
+    bool applyColorFilter = true,
+  }) {
     return Padding(
-        padding: const EdgeInsets.only(bottom: 3.0),
-        child: Icon(iconData,
-            color: applyColorFilter
-                ? isActive
-                   ? Theme.of(context).primaryColor
-                   : Colors.grey
-                : null)
-
+      padding: const EdgeInsets.only(bottom: 3.0),
+      child: SvgPicture.asset(
+        image,
+        colorFilter: ColorFilter.mode(
+            isActive ? AppColors.buttonActiveColor : AppColors.buttonColor,
+            BlendMode.srcIn),
+      ),
     );
   }
 }

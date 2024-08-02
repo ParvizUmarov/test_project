@@ -9,7 +9,7 @@ final feedBottomSheetNavigatorKey = GlobalKey<NavigatorState>();
 
 final config = GoRouter(
   navigatorKey: rootNavigatorKey,
-  initialLocation: '/splash',
+  initialLocation: '/chat_screen',
   debugLogDiagnostics: !kReleaseMode,
-  routes: [],
+  routes: $appRoutes,
 );

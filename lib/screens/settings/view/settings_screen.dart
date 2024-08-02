@@ -1,5 +1,5 @@
-
 import 'package:flutter/material.dart';
+import 'package:test_project/screens/menu/menu.dart';
 
 class SettingsScreen extends StatelessWidget {
   static const String routeName = 'settings_screen';
@@ -7,8 +7,6 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Text('Настройки'),
-    );
+    return const CenterContainer(text: 'Настройки',);
   }
 }

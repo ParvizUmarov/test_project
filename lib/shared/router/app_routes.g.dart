@@ -34,6 +34,11 @@ RouteBase get $homeShellRoute => StatefulShellRouteData.$route(
               name: 'chat_screen',
               factory: $ChatRouteExtension._fromState,
             ),
+            GoRouteData.$route(
+              path: '/chat_detail_screen',
+              name: 'chat_detail_screen',
+              factory: $ChatDetailRouteExtension._fromState,
+            ),
           ],
         ),
         StatefulShellBranchData.$branch(
@@ -98,6 +103,27 @@ extension $ChatRouteExtension on ChatRoute {
       context.pushReplacement(location);
 
   void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ChatDetailRouteExtension on ChatDetailRoute {
+  static ChatDetailRoute _fromState(GoRouterState state) => ChatDetailRoute(
+        $extra: state.extra as Users,
+      );
+
+  String get location => GoRouteData.$location(
+        '/chat_detail_screen',
+      );
+
+  void go(BuildContext context) => context.go(location, extra: $extra);
+
+  Future<T?> push<T>(BuildContext context) =>
+      context.push<T>(location, extra: $extra);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location, extra: $extra);
+
+  void replace(BuildContext context) =>
+      context.replace(location, extra: $extra);
 }
 
 extension $FavoriteRouteExtension on FavoriteRoute {

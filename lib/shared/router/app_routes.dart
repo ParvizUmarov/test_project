@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:test_project/screens/chat/chat.dart';
+import 'package:test_project/screens/chat/data/entity/users.dart';
 import 'package:test_project/screens/favorite/favorite.dart';
 import 'package:test_project/screens/menu/menu.dart';
 import 'package:test_project/screens/settings/settings.dart';
@@ -24,7 +25,13 @@ final settingsNavigatorKey = GlobalKey<NavigatorState>();
   ),
   TypedStatefulShellBranch<ChatBranch>(
     routes: [
-      TypedGoRoute<ChatRoute>(path: '/chat_screen', name: ChatScreen.routeName),
+      TypedGoRoute<ChatRoute>(
+          path: '/chat_screen',
+          name: ChatScreen.routeName),
+      TypedGoRoute<ChatDetailRoute>(
+          path: '/chat_detail_screen',
+          name: ChatDetailScreen.routeName),
+
     ],
   ),
   TypedStatefulShellBranch<FavoriteBranch>(
@@ -40,6 +47,9 @@ final settingsNavigatorKey = GlobalKey<NavigatorState>();
     ],
   ),
 ])
+
+//======================================================================
+
 class HomeShellRoute extends StatefulShellRouteData {
   const HomeShellRoute();
 
@@ -56,6 +66,8 @@ class HomeShellRoute extends StatefulShellRouteData {
     );
   }
 }
+
+//======================================================================
 
 class MainBranch extends StatefulShellBranchData {
   const MainBranch();
@@ -94,6 +106,8 @@ class MenuRoute extends GoRouteData {
   }
 }
 
+//======================================================================
+
 class ChatRoute extends GoRouteData {
   const ChatRoute();
 
@@ -103,6 +117,19 @@ class ChatRoute extends GoRouteData {
   }
 }
 
+class ChatDetailRoute extends GoRouteData {
+  final Users $extra;
+  const ChatDetailRoute({required this.$extra});
+
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ChatDetailScreen(users: $extra,);
+  }
+
+}
+
+//======================================================================
+
 class FavoriteRoute extends GoRouteData {
   const FavoriteRoute();
 
@@ -111,6 +138,8 @@ class FavoriteRoute extends GoRouteData {
     return const FavoriteScreen();
   }
 }
+
+//======================================================================
 
 class SettingsRoute extends GoRouteData {
   const SettingsRoute();
